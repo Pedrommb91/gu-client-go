@@ -8,13 +8,6 @@ import (
 	"net/http"
 )
 
-type Page struct {
-	Total   int   `json:"total"`
-	Page    int   `json:"page"`
-	PerPage int   `json:"perPage"`
-	Records []any `json:"records"`
-}
-
 type Card struct {
 	User   string `json:"user"`
 	Id     Id     `json:"id"`
@@ -27,8 +20,12 @@ type Id struct {
 	Valid bool  `json:"Valid"`
 }
 
-func GetCards() (Page, error) {
-	response, err := http.Get("https://api.godsunchained.com/v0/card")
+func GetCards(page int, perPage int) (Page, error) {
+	perform := BaseUrl + "card"
+
+	url := Paginate(perform, page, perPage)
+
+	response, err := http.Get(url)
 
 	if err != nil {
 		fmt.Print(err.Error())

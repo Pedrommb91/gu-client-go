@@ -8,7 +8,7 @@ import (
 
 func main() {
 
-	var responseObject, err = guclient.GetCards()
+	var responseObject, err = guclient.GetCards(0, 0)
 
 	if err != nil {
 		fmt.Print(err.Error())
